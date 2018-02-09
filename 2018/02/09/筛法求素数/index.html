@@ -100,7 +100,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2018-02-09</span>
-            <span class="time">22:16:05</span>
+            <span class="time">22:20:27</span>
           </span>
           
         </div>
@@ -109,15 +109,14 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/by-WSS/">#by WSS</a>
+<a class="tag" href="/tags/数论/">#数论</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>欢迎使用 <strong>{小书匠}(xiaoshujiang)编辑器</strong>，您可以通过==设置==里的修改模板来改变新建文章的内容。</p>
-<p>筛法求素数的原理：<br>       用筛法求素数的基本思想是：把从1开始的、某一范围内的正整数从小到大顺序排列， 1不是素数，首先把它筛掉。剩下的数中选择最小的数是素数，然后去掉它的倍数。依次类推，直到筛子为空时结束。</p>
+          <p>筛法求素数的原理：<br>       用筛法求素数的基本思想是：把从1开始的、某一范围内的正整数从小到大顺序排列， 1不是素数，首先把它筛掉。剩下的数中选择最小的数是素数，然后去掉它的倍数。依次类推，直到筛子为空时结束。</p>
 <p>  Code：<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"><span class="keyword">const</span> int maxn = <span class="number">100</span>;</span><br><span class="line">int vis[maxn];</span><br><span class="line">vector&lt;int&gt; primes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> get_prime()</span><br><span class="line">&#123;</span><br><span class="line">    memset(vis, <span class="number">0</span>, sizeof(vis));</span><br><span class="line">    int m = sqrt(maxn+<span class="number">0.5</span>);</span><br><span class="line">    <span class="keyword">for</span>(int i = <span class="number">2</span>; i &lt; maxn; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(int j = i*i; j &lt; maxn; j += i)</span><br><span class="line">            vis[j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(int i = <span class="number">2</span>; i &lt; maxn; i++)</span><br><span class="line">        <span class="keyword">if</span>(!vis[i])</span><br><span class="line">            primes.push_back(i);</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    get_prime();</span><br><span class="line">    <span class="keyword">for</span>(int i = <span class="number">0</span>; i &lt; primes.size(); i++)</span><br><span class="line">        cout &lt;&lt; primes[i] &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>代码解释：<br>      2 ——&gt;&gt;&gt;&gt;  从4开始，将所有 2 的倍数都划掉了，<br>      3 ——&gt;&gt;&gt;&gt;  从9开始，将所有 3 的倍数都划掉了，（相当于从 3 的 3 倍开始，3 的 2 倍 6 在 2 的倍数的时候就已经划掉了<br>      、、、、、、、、<br>      这样就把里面的所有素数都划掉了</p>
 
