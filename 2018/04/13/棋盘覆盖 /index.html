@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="WangShushuang">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="分治 —— 棋盘覆盖"/>
+  <meta property="og:description" content="WSS&#39;s Blog" />
+  <meta property="og:site_name" content="Study and Life Share of WSS"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Study and Life Share of WSS" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Study and Life Share of WSS</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">分治 —— 棋盘覆盖</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By WangShushuang</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-04-13</span>
+            <span class="time">16:04:33</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/算法策略-棋盘覆盖/">#算法策略,棋盘覆盖</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <pre><code>在一个 2^k * 2^k 个方格组成的棋盘中，若恰有一个方格与其他方格不同，则称该方格为一特殊方格，且称改棋盘为一特殊棋盘；
+</code></pre><p>   现在有四种不同的L型骨牌，每个特殊棋盘都能用这四种骨牌完全覆盖。</p>
+<pre><code>![enter description here][1]
+</code></pre><p>   输入： 棋盘的规模 k, 特殊方格的位置 dr, dc(矩阵中的下标)<br>   输出： 输出完全覆盖的棋盘</p>
+<p>  操作步骤：<br>  先把这个大棋盘分成四个小棋盘，看看特殊方格在哪个棋盘里面<br>   <img src="./images/1.png" alt="enter description here" title="1.png"></p>
+<p>  <img src="./images/2.png" alt="enter description here" title="2.png"></p>
+<p><img src="./images/3.png" alt="enter description here" title="3.png"></p>
+<p>  <img src="./images/4.png" alt="enter description here" title="4.png"></p>
+<p>这个最基本的模型我们都明白了，那么其他的大问题，我们都可以分割成这些小问题不断地进行递归来解决了</p>
+<p>  Code :</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//棋盘覆盖问题</span></span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn = 110;</span><br><span class="line">int Board[maxn][maxn];</span><br><span class="line">int k, K;   //棋盘的大小</span><br><span class="line">int tile;</span><br><span class="line"></span><br><span class="line">void Print()</span><br><span class="line">&#123;</span><br><span class="line">    for(int i = 0; i &lt; K; i++)&#123;</span><br><span class="line">        for(int j = 0; j &lt; K; j++)</span><br><span class="line">            cout &lt;&lt; Board[i][j];</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    return ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//棋盘覆盖核心代码：子棋盘左上角行号，列号， 特殊方格行号，列号，子棋盘规模</span></span><br><span class="line">void ChessBoard(int <span class="selector-tag">tr</span>, int tc, int dr, int dc, int Size)</span><br><span class="line">&#123;</span><br><span class="line">    if(Size == 1) return ;</span><br><span class="line">    <span class="comment">//Print();</span></span><br><span class="line">    int t = tile++, s = Size / 2;</span><br><span class="line">    if(t &gt; 4) t = t % 4;                        //!!保证骨牌编号在0 ~ 3 之间</span><br><span class="line">    <span class="comment">//!!!!   ①</span></span><br><span class="line">    <span class="keyword">if</span>(dr &lt; tr+s &amp;&amp; dc &lt; tc+s)                   <span class="comment">//!!特殊方格在①这个棋盘中</span></span><br><span class="line">        ChessBoard(tr, tc, dr, dc, s);           //!!对这个子棋盘递归求解</span><br><span class="line">    <span class="keyword">else</span> &#123;                                       <span class="comment">//!!这个棋盘中没有特殊方格</span></span><br><span class="line">        Board[tr+s-1][tc+s-1] = t;                //!!在这个棋盘的右下角加一个特殊方格</span><br><span class="line">        ChessBoard(tr, tc, tr+s-1, tc+s-1, s);    //!!对加有方格的子棋盘递归求解</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//!!!!   ②</span></span><br><span class="line">    <span class="keyword">if</span>(dr &lt; tr+s &amp;&amp; dc &gt;= tc+s)                <span class="comment">//!!如果特殊方格在 ② 里面</span></span><br><span class="line">        ChessBoard(tr, tc+s, dr, dc, s);       //!!对 ② 这个子棋盘递归求解</span><br><span class="line">    <span class="keyword">else</span> &#123;                                     <span class="comment">//!!如果不在②这个子棋盘里面</span></span><br><span class="line">        Board[tr+s-1][tc+s] = t;               //!!在 ② 的左下角加上一个特殊方格</span><br><span class="line">        ChessBoard(tr, tc+s, tr+s-1, tc+s, s); //!!递归求解</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//!!!!  ③</span></span><br><span class="line">    <span class="keyword">if</span>(dr &gt;= tr+s &amp;&amp; dc &lt; tc+s)                <span class="comment">//!!如果特殊方格在 ③ 里面</span></span><br><span class="line">        ChessBoard(tr+s, tc, dr, dc, s);       //!!对③这个子棋盘递归求解</span><br><span class="line">    <span class="keyword">else</span> &#123;                                     <span class="comment">//!!如果不在③这个子棋盘里面</span></span><br><span class="line">        Board[tr+s][tc+s-1] = t;               //!!在这个子棋盘的右上角加上一个特殊方格</span><br><span class="line">        ChessBoard(tr+s, tc, tr+s, tr+s-1, s); //!!递归求解</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//!!!!  ④</span></span><br><span class="line">    <span class="keyword">if</span>(dr &gt;= tr+s &amp;&amp; dc &gt;= tc+s)               <span class="comment">//!!如果这个特殊方格在④里面</span></span><br><span class="line">        ChessBoard(tr+s, tc+s, dr, dc, s);     //!!对④这个子棋盘递归求解</span><br><span class="line">    <span class="keyword">else</span>&#123;                                      <span class="comment">//!!如果不在④这个子棋盘里面</span></span><br><span class="line">        Board[tr+s][tc+s] = t;                 //!!在这个子棋盘的左上角加一个特殊方格</span><br><span class="line">        ChessBoard(tr+s, tc+s, tr+s, tc+s, s); //!!递归求解</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    scanf("%d", &amp;k);</span><br><span class="line">    K = pow(2, k);</span><br><span class="line">    int dr, dc;</span><br><span class="line">    scanf("%d %d", &amp;dr, &amp;dc); //特殊方格所在的位置</span><br><span class="line">    memset(Board, 0, sizeof(Board));</span><br><span class="line">    Board[dr][dc] = 9;</span><br><span class="line">    tile = 1;</span><br><span class="line">    ChessBoard(0, 0, dr, dc, K);</span><br><span class="line">    Print();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+

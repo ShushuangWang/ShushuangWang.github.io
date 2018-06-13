@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="WangShushuang">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="优先队列"/>
+  <meta property="og:description" content="WSS&#39;s Blog" />
+  <meta property="og:site_name" content="Study and Life Share of WSS"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Study and Life Share of WSS" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Study and Life Share of WSS</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">优先队列</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By WangShushuang</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-03-26</span>
+            <span class="time">16:04:33</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/数据结构-优先队列/">#数据结构,优先队列</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>priority_queue ：<br>      普通的队列是一种先进先出的数据结构，元素在队列尾追加，而从队列头删除。在优先队列中，元素被赋予优先级。当访问元素时，具有<strong>最高优先级的元素最先删除</strong>。优先队列具有最高级先出 （first in, largest out）的行为特征。</p>
+<p>头文件： </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;queue&gt;</span><br></pre></td></tr></table></figure>
+<p>定义：<br>基本数据类型的优先队列<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;int&gt; p_que1;  //优先级别为从大到小</span><br><span class="line">priority_queue&lt;int, vector&lt;int&gt;, less&lt;int&gt; &gt; p_que1;    // 优先级为从小到大</span><br><span class="line">priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; p_que1;  //优先级别为从小到大</span><br></pre></td></tr></table></figure></p>
+<p>自定义数据类型的优先队列：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">struct NNode&#123;</span><br><span class="line">    int id;</span><br><span class="line">    bool operator &lt; (const NNode &amp; n) const &#123;</span><br><span class="line">        return id &lt; n.id;</span><br><span class="line">    &#125;</span><br><span class="line">    bool operator &gt; (const NNode &amp; n) const  &#123;</span><br><span class="line">        return id &gt; n.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">typedef NNode Node;</span><br><span class="line">struct cmp&#123;</span><br><span class="line">    bool operator()(Node n1, Node n2)&#123;</span><br><span class="line">        return n1.id &lt; n2.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">priority_queue&lt;Node&gt; p_que2;  </span><br><span class="line"><span class="comment">//因为p_que2是默认按照从小到大的序列（但是大的优先级别高，所以如果这样定义一定要重载小于运算符</span></span><br><span class="line">priority_queue&lt;Node, vector&lt;Node&gt;, cmp&gt; p_que2; </span><br><span class="line"> <span class="comment">// 这里面的 cmp 必须为一个对象</span></span><br></pre></td></tr></table></figure>
+<p>完整测试代码</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//优先队列</span></span><br><span class="line"></span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//基本数据类型的优先队列</span></span><br><span class="line">priority_queue&lt;int&gt; p_que1;  //优先级别为从大到小</span><br><span class="line"><span class="comment">//priority_queue&lt;int, vector&lt;int&gt;, less&lt;int&gt; &gt; p_que1;    // 优先级为从小到大</span></span><br><span class="line"><span class="comment">//priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; p_que1;  //优先级别为从小到大</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义数据类型的有限队列</span></span><br><span class="line">struct NNode&#123;</span><br><span class="line">    int id;</span><br><span class="line">    bool operator &lt; (const NNode &amp; n) const &#123;</span><br><span class="line">        return id &lt; n.id;</span><br><span class="line">    &#125;</span><br><span class="line">    bool operator &gt; (const NNode &amp; n) const  &#123;</span><br><span class="line">        return id &gt; n.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">typedef NNode Node;</span><br><span class="line">struct cmp&#123;</span><br><span class="line">    bool operator()(Node n1, Node n2)&#123;</span><br><span class="line">        return n1.id &lt; n2.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//priority_queue&lt;Node&gt; p_que2;</span></span><br><span class="line"><span class="comment">//因为p_que2是默认按照从小到大的序列（但是大的优先级别高，所以如果这样定义一定要重载小于运算符</span></span><br><span class="line">priority_queue&lt;Node, vector&lt;Node&gt;, cmp&gt; p_que2;</span><br><span class="line"> <span class="comment">// 这里面的 cmp 必须为一个对象</span></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    scanf("%d", &amp;n);</span><br><span class="line">    while(n--)&#123;</span><br><span class="line">        int x;</span><br><span class="line">        scanf("%d", &amp;x);</span><br><span class="line">        p_que1.push(x);</span><br><span class="line">    &#125;</span><br><span class="line">    while(!p_que1.empty())&#123;</span><br><span class="line">        cout &lt;&lt; p_que1.<span class="attribute">top</span>() &lt;&lt; endl;</span><br><span class="line">        p_que1.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    scanf("%d", &amp;n);</span><br><span class="line">    while(n--)&#123;</span><br><span class="line">        Node n;</span><br><span class="line">        scanf("%d", &amp;n.id);</span><br><span class="line">        p_que2.push(n);</span><br><span class="line">    &#125;</span><br><span class="line">    while(!p_que2.empty())&#123;</span><br><span class="line">        cout &lt;&lt; (p_que2.top()).id &lt;&lt; endl;</span><br><span class="line">        p_que2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
